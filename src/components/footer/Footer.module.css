@@ -1,0 +1,22 @@
+.footer__light {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    min-width: 100vw;
+    background: #fff;
+    box-shadow: 0 2px 6px -1px rgba(0,0,0,0.2), 0 4px 7px 0 rgba(0,0,0,0.14), 0 1px 12px 0 rgba(0,0,0,0.12);
+    z-index: 10000;
+}
+
+.footer__dark {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    min-width: 100vw;
+    color: #fdfdfd;
+    background: #272727;
+    box-shadow: 0 2px 6px -1px rgba(0,0,0,0.2), 0 4px 7px 0 rgba(0,0,0,0.14), 0 1px 12px 0 rgba(0,0,0,0.12);
+    z-index: 10000;
+}
