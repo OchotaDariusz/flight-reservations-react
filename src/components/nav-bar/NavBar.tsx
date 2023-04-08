@@ -19,7 +19,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import { useTheme } from '@mui/material';
+import { ClickAwayListener, useTheme } from '@mui/material';
 import { ThemeSwitchButton } from '../theme-switch-button/ThemeSwitchButton';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
@@ -42,102 +42,105 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export const NavBar = () => {
-  const [open, setOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = React.useState(false);
   const theme = useTheme();
 
   const handleDrawerOpen = () => {
-    setOpen(true);
+    setIsOpen(true);
   };
 
   const handleDrawerClose = () => {
-    setOpen(false);
+    setIsOpen(false);
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" color={'secondary'}>
-        <StyledToolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            onClick={handleDrawerOpen}
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            variant="h5"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, alignSelf: 'flex-end' }}
-          >
-            Flight Reservations
-          </Typography>
-          <IconButton size="large" aria-label="search" color="inherit">
-            <SearchIcon />
-          </IconButton>
-          <IconButton
-            size="large"
-            aria-label="display more actions"
-            edge="end"
-            color="inherit"
-          >
-            <MoreIcon />
-          </IconButton>
-        </StyledToolbar>
-      </AppBar>
-      <Drawer
-        sx={{
-          width: 240,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
+    <ClickAwayListener onClickAway={handleDrawerClose}>
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static" color={'secondary'}>
+          <StyledToolbar>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              onClick={handleDrawerOpen}
+              aria-label="open drawer"
+              sx={{ mr: 2 }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              variant="h5"
+              noWrap
+              component="div"
+              sx={{ flexGrow: 1, alignSelf: 'flex-end' }}
+            >
+              Flight Reservations
+            </Typography>
+            <IconButton size="large" aria-label="search" color="inherit">
+              <SearchIcon />
+            </IconButton>
+            <IconButton
+              size="large"
+              aria-label="display more actions"
+              edge="end"
+              color="inherit"
+            >
+              <MoreIcon />
+            </IconButton>
+          </StyledToolbar>
+        </AppBar>
+        <Drawer
+          sx={{
             width: 240,
-            boxSizing: 'border-box',
-          },
-        }}
-        variant="persistent"
-        anchor="left"
-        open={open}
-      >
-        <DrawerHeader>
-          <ThemeSwitchButton />
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? (
-              <ChevronLeftIcon />
-            ) : (
-              <ChevronRightIcon />
-            )}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
-    </Box>
+            flexShrink: 0,
+            '& .MuiDrawer-paper': {
+              width: 240,
+              boxSizing: 'border-box',
+            },
+          }}
+          variant="persistent"
+          anchor="left"
+          open={isOpen}
+          onClose={handleDrawerClose}
+        >
+          <DrawerHeader>
+            <ThemeSwitchButton />
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === 'ltr' ? (
+                <ChevronLeftIcon />
+              ) : (
+                <ChevronRightIcon />
+              )}
+            </IconButton>
+          </DrawerHeader>
+          <Divider />
+          <List>
+            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+              <ListItem key={text} disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+          <Divider />
+          <List>
+            {['All mail', 'Trash', 'Spam'].map((text, index) => (
+              <ListItem key={text} disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+        </Drawer>
+      </Box>
+    </ClickAwayListener>
   );
 };
