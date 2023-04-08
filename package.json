@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "homepage": "https://ochotadariusz.github.io/flight-reservations-react",
   "private": true,
   "dependencies": {
