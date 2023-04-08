@@ -3,7 +3,6 @@ import { Outlet } from 'react-router-dom';
 import { Container } from '@mui/material';
 
 import { Footer, NavBar, ThemeColorWrapper } from './components';
-import './App.css';
 
 function App() {
   return (
