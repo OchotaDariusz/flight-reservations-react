@@ -5,22 +5,12 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import MoreIcon from '@mui/icons-material/MoreVert';
-import Drawer from '@mui/material/Drawer';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import { ClickAwayListener, useTheme } from '@mui/material';
-import { ThemeSwitchButton } from '../theme-switch-button/ThemeSwitchButton';
+import { ClickAwayListener } from '@mui/material';
+
+import NavDrawer from './NavDrawer';
+import SearchBar from './SearchBar';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   alignItems: 'flex-start',
@@ -32,18 +22,8 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   },
 }));
 
-const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-  justifyContent: 'flex-end',
-}));
-
 export const NavBar = () => {
   const [isOpen, setIsOpen] = React.useState(false);
-  const theme = useTheme();
 
   const handleDrawerOpen = () => {
     setIsOpen(true);
@@ -76,70 +56,35 @@ export const NavBar = () => {
             >
               Flight Reservations
             </Typography>
-            <IconButton size="large" aria-label="search" color="inherit">
-              <SearchIcon />
+            <IconButton
+              size="large"
+              aria-label="search"
+              color="inherit"
+              sx={{
+                marginTop: 'auto',
+                marginBottom: 'auto',
+                '&:hover': {
+                  background: 'none',
+                },
+              }}
+            >
+              <SearchBar />
             </IconButton>
             <IconButton
               size="large"
-              aria-label="display more actions"
+              aria-label="account"
               edge="end"
               color="inherit"
+              sx={{
+                marginTop: 'auto',
+                marginBottom: 'auto',
+              }}
             >
-              <MoreIcon />
+              <AccountCircleIcon sx={{ fontSize: '2.5rem' }} />
             </IconButton>
           </StyledToolbar>
         </AppBar>
-        <Drawer
-          sx={{
-            width: 240,
-            flexShrink: 0,
-            '& .MuiDrawer-paper': {
-              width: 240,
-              boxSizing: 'border-box',
-            },
-          }}
-          variant="persistent"
-          anchor="left"
-          open={isOpen}
-          onClose={handleDrawerClose}
-        >
-          <DrawerHeader>
-            <ThemeSwitchButton />
-            <IconButton onClick={handleDrawerClose}>
-              {theme.direction === 'ltr' ? (
-                <ChevronLeftIcon />
-              ) : (
-                <ChevronRightIcon />
-              )}
-            </IconButton>
-          </DrawerHeader>
-          <Divider />
-          <List>
-            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-          <Divider />
-          <List>
-            {['All mail', 'Trash', 'Spam'].map((text, index) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-        </Drawer>
+        <NavDrawer isOpen={isOpen} handleDrawerClose={handleDrawerClose} />
       </Box>
     </ClickAwayListener>
   );

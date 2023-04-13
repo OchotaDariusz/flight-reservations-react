@@ -8,22 +8,20 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import './index.css';
+import './index.scss';
+import { Home } from './components';
 
 const router = createHashRouter([
   {
     path: '/',
     element: <App />,
-    // loader: rootLoader,
     // errorElement: <ErrorPage />,
-    // children: [
-    //     {
-    //         path: 'test',
-    //         element: <Test />,
-    //         loader: testLoader,
-    //         lazy: lazyFn
-    //     }
-    // ]
+    children: [
+      {
+        path: '/',
+        element: <Home />,
+      },
+    ],
   },
 ]);
 

@@ -1,7 +1,7 @@
 {
   "name": "frontend",
   "version": "0.2.3",
-  "homepage": "https://ochotadariusz.github.io/flight-reservations-react",
+  "homepage": "https://ochotadariusz.github.io/flight-reservations-react/",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.6",
