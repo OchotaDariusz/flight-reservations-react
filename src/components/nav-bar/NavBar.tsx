@@ -56,10 +56,7 @@ export const NavBar = () => {
             >
               Flight Reservations
             </Typography>
-            <IconButton
-              size="large"
-              aria-label="search"
-              color="inherit"
+            <Box
               sx={{
                 marginTop: 'auto',
                 marginBottom: 'auto',
@@ -69,7 +66,7 @@ export const NavBar = () => {
               }}
             >
               <SearchBar />
-            </IconButton>
+            </Box>
             <IconButton
               size="large"
               aria-label="account"

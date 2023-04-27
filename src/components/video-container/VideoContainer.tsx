@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './video-container.module.scss';
+import styles from './VideoContainer.module.scss';
 
 export const VideoContainer = () => {
   return (

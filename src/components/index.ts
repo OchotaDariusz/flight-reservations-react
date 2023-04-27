@@ -2,4 +2,5 @@ export { Footer } from './footer/Footer';
 export { NavBar } from './nav-bar/NavBar';
 export { ThemeSwitchButton } from './theme-switch-button/ThemeSwitchButton';
 export { ThemeColorWrapper } from './theme-color-wrapper/ThemeColorWrapper';
-export { VideoContainer } from './video-container/video-container';
+export { VideoContainer } from './video-container/VideoContainer';
+export { SearchBox } from './search-box/SearchBox';

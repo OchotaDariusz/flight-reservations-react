@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Autocomplete from '@mui/material/Autocomplete';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import { TextField } from '@mui/material';
-import Box from '@mui/material/Box';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -55,19 +54,25 @@ const StyledInputBase = styled(TextField)(({ theme }) => ({
   },
 }));
 
-const autocompleteOptions = [
+type RouteOption = { label: string; value: string; route: string };
+
+const autocompleteOptions: RouteOption[] = [
   { label: 'Flight Search', value: 'flight search', route: 'search' },
   { label: 'Account', value: 'account', route: 'profile' },
   { label: 'Contact', value: 'contact', route: 'contact' },
   { label: 'About', value: 'about', route: 'about' },
 ];
 
-type AutocompleteOptions = { label: string; value: string; route: string };
-
 const SearchBar = () => {
-  const [inputValue, setInputValue] = useState<AutocompleteOptions | null>(
-    null,
-  );
+  const [value, setValue] = React.useState<RouteOption | null>(null);
+  const [inputValue, setInputValue] = React.useState('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (value !== null) {
+      navigate(`/${value.route}`);
+    }
+  }, [value, inputValue]);
 
   return (
     <Search>
@@ -75,13 +80,16 @@ const SearchBar = () => {
         <SearchIcon />
       </SearchIconWrapper>
       <Autocomplete
-        freeSolo
+        disablePortal
         options={autocompleteOptions}
-        value={inputValue}
+        value={value}
         onChange={(event, newValue) => {
-          setInputValue(newValue as AutocompleteOptions);
+          setValue(newValue as RouteOption);
         }}
-        getOptionLabel={(option) => (option as AutocompleteOptions).label}
+        inputValue={inputValue}
+        onInputChange={(event, newInputValue) => {
+          setInputValue(newInputValue);
+        }}
         renderInput={(params) => {
           return (
             <StyledInputBase
@@ -92,16 +100,6 @@ const SearchBar = () => {
           );
         }}
         sx={{ width: '100%' }}
-        renderOption={(props, option) => (
-          <Box component="div" sx={{ textAlign: 'center' }}>
-            <Link
-              to={`/${(option as AutocompleteOptions).route}`}
-              onClick={() => setInputValue(option as AutocompleteOptions)}
-            >
-              {(option as AutocompleteOptions).label}
-            </Link>
-          </Box>
-        )}
       />
     </Search>
   );

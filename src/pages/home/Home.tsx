@@ -6,8 +6,6 @@ import styles from './Home.module.scss';
 import { VideoContainer } from '../../components';
 import Box from '@mui/material/Box';
 
-// <iframe src="https://player.vimeo.com/video/820590525?h=f8021c95d3" width="640" height="564" frameBorder="0"
-//         allow="autoplay; fullscreen" allowFullScreen></iframe>
 export const Home = () => {
   return (
     <div className={styles['home-container']}>
