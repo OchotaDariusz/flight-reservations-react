@@ -1,32 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import CountriesSearchBox from './CountriesSearchBox';
 
-type Country = { country: string };
+type Country = { id: number; name: string };
 
 export const SearchBox = () => {
-  const [countries, setCountries] = useState<Country[]>([]);
+  const [selectedCountry, setSelectedCountry] = useState<Country>({
+    id: 0,
+    name: 'country',
+  });
+  const [isCountrySelected, setIsCountrySelected] = useState(false);
 
   useEffect(() => {
-    if (countries.length === 0) {
-      fetch(
-        'https://gist.githubusercontent.com/OchotaDariusz/2cc3fad4147d7172e5f805fe576d8c68/raw/8c21cc873b73e5d658c2b30f4146d7812d84b2ea/countries.json',
-      )
-        .then((data) => data.json())
-        .then((data: { countries: Country[] }) => {
-          setCountries(data.countries.flat());
-        })
-        .catch((err) => console.error(err.message));
+    if (selectedCountry === null || selectedCountry.id === 0) {
+      setIsCountrySelected(false);
+    } else {
+      setIsCountrySelected(true);
     }
-  }, [countries]);
+  }, [selectedCountry]);
 
   return (
-    <Autocomplete
-      disablePortal
-      id="combo-box-demo"
-      options={countries}
-      sx={{ width: 300 }}
-      renderInput={(params) => <TextField {...params} label="Country" />}
-    />
+    <>
+      <CountriesSearchBox onCountryChange={setSelectedCountry} />
+      {isCountrySelected && <div>AIRPORTS</div>}
+    </>
   );
 };

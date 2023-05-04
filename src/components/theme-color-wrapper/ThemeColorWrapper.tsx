@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { indigo } from '@mui/material/colors';
 
@@ -27,6 +27,9 @@ export function ThemeColorWrapper({ children }: ThemeColorWrapperProps) {
       createTheme({
         palette: {
           mode,
+          // background: {
+          //   default: mode === 'light' ? '#fff' : '#bbb',
+          // },
           primary: {
             main: indigo[400],
           },
@@ -46,6 +49,10 @@ export function ThemeColorWrapper({ children }: ThemeColorWrapperProps) {
       }),
     [mode],
   );
+
+  // useEffect(() => {
+  //   document.body.style.backgroundColor =
+  // })
 
   return (
     <ColorModeContext.Provider value={colorMode}>

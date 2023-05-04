@@ -2,6 +2,7 @@
   "name": "frontend",
   "version": "0.2.3",
   "homepage": "https://ochotadariusz.github.io/flight-reservations-react/",
+  "proxy": "http://localhost:8080/api/v1",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -56,8 +57,9 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
-    "prettier": "^2.8.7",
     "gh-pages": "^5.0.0",
+    "http-proxy-middleware": "^2.0.6",
+    "prettier": "^2.8.7",
     "sass": "^1.61.0",
     "typescript": "^4.9.5"
   }

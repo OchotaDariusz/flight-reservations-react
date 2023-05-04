@@ -6,7 +6,16 @@ import { SearchBox } from '../../components';
 
 export const FlightSearch = () => {
   return (
-    <Box>
+    <Box
+      sx={{
+        backgroundColor: 'rgba(255, 255, 255, 0.3)',
+        margin: '1.25rem',
+        paddingTop: '1px',
+        paddingBottom: '1.25rem',
+        borderRadius: '4px',
+        boxShadow: '0 0 1px rgba(255, 255, 255, 0.3)',
+      }}
+    >
       <Typography
         variant="h3"
         component="h1"
@@ -21,7 +30,16 @@ export const FlightSearch = () => {
         Flight Search
       </Typography>
 
-      <Card variant="outlined">
+      <Card
+        variant="outlined"
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          placeItems: 'center',
+          padding: '2rem',
+          margin: '2rem',
+        }}
+      >
         <SearchBox />
       </Card>
     </Box>
