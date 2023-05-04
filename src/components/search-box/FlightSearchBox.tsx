@@ -19,10 +19,10 @@ export const FlightSearchBox = () => {
   useEffect(() => {
     if (selectedCountry === null || selectedCountry.id === 0) {
       setIsCountrySelected(false);
-      setSelectedAirportId(0);
     } else {
       setIsCountrySelected(true);
     }
+    setSelectedAirportId(0);
   }, [selectedCountry]);
 
   useEffect(() => {
