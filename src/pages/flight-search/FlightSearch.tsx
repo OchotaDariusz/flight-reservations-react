@@ -2,7 +2,7 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
-import { SearchBox } from '../../components';
+import { FlightSearchBox } from '../../components';
 
 export const FlightSearch = () => {
   return (
@@ -40,7 +40,7 @@ export const FlightSearch = () => {
           margin: '2rem',
         }}
       >
-        <SearchBox />
+        <FlightSearchBox />
       </Card>
     </Box>
   );

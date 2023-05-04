@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
+import React, { lazy, useEffect, useState } from 'react';
+
 import CountriesSearchBox from './CountriesSearchBox';
+const AirportsList = lazy(() => import('../airports-list/AirportsList'));
 
 type Country = { id: number; name: string };
 
-export const SearchBox = () => {
+export const FlightSearchBox = () => {
   const [selectedCountry, setSelectedCountry] = useState<Country>({
     id: 0,
     name: 'country',
@@ -23,7 +23,9 @@ export const SearchBox = () => {
   return (
     <>
       <CountriesSearchBox onCountryChange={setSelectedCountry} />
-      {isCountrySelected && <div>AIRPORTS</div>}
+      {selectedCountry !== null && isCountrySelected && (
+        <AirportsList countryId={selectedCountry.id} />
+      )}
     </>
   );
 };
