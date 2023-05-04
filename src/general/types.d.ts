@@ -15,3 +15,13 @@ interface Airport {
   timezone: number;
   dst: string;
 }
+
+interface Departure {
+  id: number;
+  airline: string;
+  airlineId: number;
+  sourceAirport: string;
+  sourceAirportId: number;
+  destinationAirport: string;
+  destiantionAirportId: number;
+}

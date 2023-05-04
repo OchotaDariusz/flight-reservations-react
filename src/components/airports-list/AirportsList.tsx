@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  DataGrid,
-  GridColDef,
-  GridRowSelectionModel,
-  GridValueGetterParams,
-} from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridRowSelectionModel } from '@mui/x-data-grid';
 import { LoadingBox } from '../loading-box/LoadingBox';
 
 const columns: GridColDef[] = [
@@ -14,13 +9,11 @@ const columns: GridColDef[] = [
   {
     field: 'iataCode',
     headerName: 'IATA',
-    type: 'number',
     flex: 1,
   },
   {
     field: 'icaoCode',
     headerName: 'ICAO',
-    type: 'number',
     flex: 1,
   },
 ];

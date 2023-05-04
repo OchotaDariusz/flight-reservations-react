@@ -3,6 +3,7 @@ import React, { lazy, useEffect, useState, Suspense } from 'react';
 import CountriesSearchBox from './CountriesSearchBox';
 import { LoadingBox } from '../loading-box/LoadingBox';
 const AirportsList = lazy(() => import('../airports-list/AirportsList'));
+const Departures = lazy(() => import('../departures/Departures'));
 
 type Country = { id: number; name: string };
 
@@ -38,6 +39,13 @@ export const FlightSearchBox = () => {
             onAirportSelect={setSelectedAirportId}
           />
         )}
+      </Suspense>
+      <Suspense fallback={<LoadingBox />}>
+        {selectedCountry !== null &&
+          isCountrySelected &&
+          selectedAirportId !== 0 && (
+            <Departures airportId={selectedAirportId} />
+          )}
       </Suspense>
     </>
   );
