@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
-type Props = {
+type CountriesSearchBoxProps = {
   onCountryChange: (country: Country) => void;
 };
 
-const CountriesSearchBox: React.FC<Props> = ({ onCountryChange }) => {
+export const CountriesSearchBox: React.FC<CountriesSearchBoxProps> = (
+  props,
+) => {
   const [countries, setCountries] = useState<Country[]>([]);
 
   useEffect(() => {
@@ -27,12 +29,10 @@ const CountriesSearchBox: React.FC<Props> = ({ onCountryChange }) => {
       options={countries}
       getOptionLabel={(option) => option.name}
       onChange={(_event, value) => {
-        onCountryChange(value as Country);
+        props.onCountryChange(value as Country);
       }}
       sx={{ width: 300 }}
       renderInput={(params) => <TextField {...params} label="Country" />}
     />
   );
 };
-
-export default CountriesSearchBox;

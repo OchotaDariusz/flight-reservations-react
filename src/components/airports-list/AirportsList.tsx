@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { DataGrid, GridColDef, GridRowSelectionModel } from '@mui/x-data-grid';
-import { LoadingBox } from '../loading-box/LoadingBox';
+
+import { LoadingBox } from '@flight-reservations/components';
 
 const columns: GridColDef[] = [
   { field: 'id' },
@@ -8,17 +9,19 @@ const columns: GridColDef[] = [
   { field: 'city', headerName: 'City', flex: 2 },
 ];
 
-type Props = {
+type AirportsListProps = {
   countryId: number;
   onAirportSelect: (id: string) => void;
 };
 
-const AirportsList: React.FC<Props> = ({ countryId, onAirportSelect }) => {
+export const AirportsList: React.FC<AirportsListProps> = (props) => {
   const [listOfAirports, setListOfAirports] = useState<Airport[]>([]);
   const [isAirportsLoading, setIsAirportsLoading] = useState(false);
 
+  const { countryId } = props;
+
   useEffect(() => {
-    if (countryId) {
+    if (props.countryId) {
       setIsAirportsLoading(true);
       fetch(`/airports/${countryId}`)
         .then((data) => data.json())
@@ -43,9 +46,9 @@ const AirportsList: React.FC<Props> = ({ countryId, onAirportSelect }) => {
 
   const handleAirportChange = (rowSelectionModel: GridRowSelectionModel) => {
     if (rowSelectionModel.length !== 0) {
-      onAirportSelect(rowSelectionModel[0] as string);
+      props.onAirportSelect(rowSelectionModel[0] as string);
     } else {
-      onAirportSelect('');
+      props.onAirportSelect('');
     }
   };
 
@@ -76,5 +79,3 @@ const AirportsList: React.FC<Props> = ({ countryId, onAirportSelect }) => {
     </>
   );
 };
-
-export default AirportsList;

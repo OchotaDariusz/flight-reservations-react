@@ -1,7 +1,7 @@
 import React from 'react';
+import { useTheme } from '@mui/material';
 
 import styles from './Footer.module.scss';
-import { useTheme } from '@mui/material';
 
 export const Footer = () => {
   const theme = useTheme();

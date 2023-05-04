@@ -3,7 +3,13 @@ import ReactDOM from 'react-dom/client';
 import { createHashRouter, RouterProvider } from 'react-router-dom';
 
 import App from './App';
-import { About, Contact, ErrorPage, FlightSearch, Home } from './pages';
+import {
+  About,
+  Contact,
+  ErrorPage,
+  FlightSearch,
+  Home,
+} from '@flight-reservations/pages';
 
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';

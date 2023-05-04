@@ -6,7 +6,7 @@ import {
   GridValueGetterParams,
 } from '@mui/x-data-grid';
 
-import { LoadingBox } from '../loading-box/LoadingBox';
+import { LoadingBox } from '@flight-reservations/components';
 
 const columns: GridColDef[] = [
   { field: 'id' },
@@ -42,13 +42,15 @@ const columns: GridColDef[] = [
   { field: 'delayed', headerName: 'Delay', flex: 1 },
 ];
 
-type Props = {
+type DeparturesProps = {
   airportIata: string;
 };
 
-const Departures: React.FC<Props> = ({ airportIata }) => {
+export const Departures: React.FC<DeparturesProps> = (props) => {
   const [listOfDepartures, setListOfDepartures] = useState<Departure[]>([]);
   const [isDeparturesLoading, setIsDeparturesLoading] = useState(false);
+
+  const { airportIata } = props;
 
   useEffect(() => {
     if (airportIata) {
@@ -105,5 +107,3 @@ const Departures: React.FC<Props> = ({ airportIata }) => {
     </>
   );
 };
-
-export default Departures;

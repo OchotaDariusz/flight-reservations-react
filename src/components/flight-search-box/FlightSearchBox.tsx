@@ -1,9 +1,10 @@
-import React, { lazy, useEffect, useState, Suspense } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import CountriesSearchBox from './CountriesSearchBox';
-import { LoadingBox } from '../loading-box/LoadingBox';
-const AirportsList = lazy(() => import('../airports-list/AirportsList'));
-const Departures = lazy(() => import('../departures/Departures'));
+import {
+  AirportsList,
+  CountriesSearchBox,
+  Departures,
+} from '@flight-reservations/components';
 
 type Country = { id: number; name: string };
 
@@ -25,28 +26,20 @@ export const FlightSearchBox = () => {
     setSelectedAirportIata('');
   }, [selectedCountry]);
 
-  useEffect(() => {
-    console.log(selectedAirportIata);
-  }, [selectedAirportIata]);
-
   return (
     <>
       <CountriesSearchBox onCountryChange={setSelectedCountry} />
-      <Suspense fallback={<LoadingBox />}>
-        {selectedCountry !== null && isCountrySelected && (
-          <AirportsList
-            countryId={selectedCountry.id}
-            onAirportSelect={setSelectedAirportIata}
-          />
+      {selectedCountry !== null && isCountrySelected && (
+        <AirportsList
+          countryId={selectedCountry.id}
+          onAirportSelect={setSelectedAirportIata}
+        />
+      )}
+      {selectedCountry !== null &&
+        isCountrySelected &&
+        selectedAirportIata !== '' && (
+          <Departures airportIata={selectedAirportIata} />
         )}
-      </Suspense>
-      <Suspense fallback={<LoadingBox />}>
-        {selectedCountry !== null &&
-          isCountrySelected &&
-          selectedAirportIata !== '' && (
-            <Departures airportIata={selectedAirportIata} />
-          )}
-      </Suspense>
     </>
   );
 };

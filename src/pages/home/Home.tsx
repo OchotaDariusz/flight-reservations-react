@@ -1,10 +1,11 @@
-import * as React from 'react';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-
-import styles from './Home.module.scss';
-import { VideoContainer } from '../../components';
+import React from 'react';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
+
+import { VideoContainer } from '@flight-reservations/components';
+import styles from './Home.module.scss';
 
 export const Home = () => {
   return (
@@ -19,6 +20,7 @@ export const Home = () => {
           paddingBottom: '1.5rem',
         }}
       >
+        <Button variant="outlined">Welcome</Button>
         <Typography
           variant="h1"
           component="h1"

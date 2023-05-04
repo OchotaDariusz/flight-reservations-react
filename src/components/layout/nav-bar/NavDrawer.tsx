@@ -19,7 +19,7 @@ import Drawer from '@mui/material/Drawer';
 import { useTheme } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-import { ThemeSwitchButton } from '../../theme-switch-button/ThemeSwitchButton';
+import { ThemeSwitchButton } from '@flight-reservations/components';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',

@@ -1,15 +1,12 @@
-import React, { ReactNode, useEffect } from 'react';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { indigo } from '@mui/material/colors';
+import React, { ReactNode } from 'react';
+import { ThemeProvider } from '@mui/material/styles';
 
-export const ColorModeContext = React.createContext({
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  toggleColorMode: () => {},
-});
+import { useCustomTheme } from '@flight-reservations/hooks';
+import { ColorModeContext } from '@flight-reservations/store/context';
 
-interface ThemeColorWrapperProps {
+type ThemeColorWrapperProps = {
   children: ReactNode;
-}
+};
 
 export function ThemeColorWrapper({ children }: ThemeColorWrapperProps) {
   const [mode, setMode] = React.useState<'light' | 'dark'>('light');
@@ -22,37 +19,7 @@ export function ThemeColorWrapper({ children }: ThemeColorWrapperProps) {
     [],
   );
 
-  const theme = React.useMemo(
-    () =>
-      createTheme({
-        palette: {
-          mode,
-          // background: {
-          //   default: mode === 'light' ? '#fff' : '#bbb',
-          // },
-          primary: {
-            main: indigo[400],
-          },
-          secondary: {
-            main: indigo[600],
-          },
-          error: {
-            main: '#e53935',
-          },
-          info: {
-            main: '#84ffff',
-          },
-          success: {
-            main: '#9ccc65',
-          },
-        },
-      }),
-    [mode],
-  );
-
-  // useEffect(() => {
-  //   document.body.style.backgroundColor =
-  // })
+  const theme = useCustomTheme(mode);
 
   return (
     <ColorModeContext.Provider value={colorMode}>

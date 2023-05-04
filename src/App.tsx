@@ -2,7 +2,11 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { Container, CssBaseline } from '@mui/material';
 
-import { Footer, NavBar, ThemeColorWrapper } from './components';
+import {
+  Footer,
+  NavBar,
+  ThemeColorWrapper,
+} from '@flight-reservations/components';
 
 function App() {
   return (
