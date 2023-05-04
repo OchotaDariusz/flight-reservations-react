@@ -1,49 +1,64 @@
-import React, { useState, useEffect } from 'react';
-import { DataGrid, GridColDef, GridRowSelectionModel } from '@mui/x-data-grid';
+import React, { useEffect, useState } from 'react';
+import {
+  DataGrid,
+  GridColDef,
+  GridRowSelectionModel,
+  GridValueGetterParams,
+} from '@mui/x-data-grid';
+
 import { LoadingBox } from '../loading-box/LoadingBox';
 
 const columns: GridColDef[] = [
-  { field: 'id', headerName: 'ID', flex: 1 },
-  { field: 'airline', headerName: 'Airline', flex: 1 },
-  { field: 'airlineId', headerName: 'Airline ID', flex: 1 },
+  { field: 'id' },
   {
-    field: 'sourceAirport',
-    headerName: 'Source Airport',
-    flex: 1,
+    field: 'from',
+    headerName: 'From',
+    flex: 4,
+    valueGetter: (params: GridValueGetterParams) =>
+      `${params.row.departureAirport.name}`,
   },
   {
-    field: 'sourceAirportId',
-    headerName: 'Source Airport ID',
-    flex: 1,
+    field: 'to',
+    headerName: 'To',
+    flex: 4,
+    valueGetter: (params: GridValueGetterParams) =>
+      `${params.row.arrivalAirport.name}`,
   },
   {
-    field: 'destinationAirport',
-    headerName: 'Destination Airport',
-    flex: 1,
+    field: 'departureTime',
+    headerName: 'Departure Time',
+    flex: 3,
+    valueGetter: (params: GridValueGetterParams) => {
+      const date = new Date(params.row.departureTimeUtc);
+      return new Intl.DateTimeFormat(undefined, {
+        dateStyle: 'medium',
+        timeStyle: 'medium',
+      })
+        .format(date)
+        .toString();
+    },
   },
-  {
-    field: 'destinationAirportId',
-    headerName: 'Destination Airport ID',
-    flex: 1,
-  },
+  { field: 'duration', headerName: 'Duration', flex: 1 },
+  { field: 'delayed', headerName: 'Delay', flex: 1 },
 ];
 
 type Props = {
-  airportId: number;
+  airportIata: string;
 };
 
-const Departures: React.FC<Props> = ({ airportId }) => {
+const Departures: React.FC<Props> = ({ airportIata }) => {
   const [listOfDepartures, setListOfDepartures] = useState<Departure[]>([]);
   const [isDeparturesLoading, setIsDeparturesLoading] = useState(false);
 
   useEffect(() => {
-    if (airportId) {
+    if (airportIata) {
       setIsDeparturesLoading(true);
-      fetch(`/routes/airport/from/${airportId}`)
+      fetch(`/flights/${airportIata}`)
         .then((data) => data.json())
         .then((data: Departure[]) => {
+          console.log(data);
           setIsDeparturesLoading(false);
-          setListOfDepartures(data.flat());
+          setListOfDepartures(data);
         })
         .catch((err) => {
           setIsDeparturesLoading(false);
@@ -52,15 +67,7 @@ const Departures: React.FC<Props> = ({ airportId }) => {
     } else {
       setListOfDepartures([]);
     }
-  }, [airportId]);
-
-  // const departures = listOfDepartures.map((airport) => ({
-  //   id: airport.id,
-  //   name: airport.name,
-  //   city: airport.city,
-  //   iataCode: airport.iataCode,
-  //   icaoCode: airport.icaoCode,
-  // }));
+  }, [airportIata]);
 
   const handleAirportChange = (rowSelectionModel: GridRowSelectionModel) => {
     // if (rowSelectionModel.length !== 0) {
@@ -82,7 +89,12 @@ const Departures: React.FC<Props> = ({ airportId }) => {
             columns={columns}
             initialState={{
               pagination: {
-                paginationModel: { page: 0, pageSize: 5 },
+                paginationModel: { page: 0, pageSize: 10 },
+              },
+              columns: {
+                columnVisibilityModel: {
+                  id: false,
+                },
               },
             }}
             pageSizeOptions={[5, 10]}

@@ -14,7 +14,7 @@ export const FlightSearchBox = () => {
   });
   const [isCountrySelected, setIsCountrySelected] = useState(false);
 
-  const [selectedAirportId, setSelectedAirportId] = useState(0);
+  const [selectedAirportIata, setSelectedAirportIata] = useState('');
 
   useEffect(() => {
     if (selectedCountry === null || selectedCountry.id === 0) {
@@ -22,12 +22,12 @@ export const FlightSearchBox = () => {
     } else {
       setIsCountrySelected(true);
     }
-    setSelectedAirportId(0);
+    setSelectedAirportIata('');
   }, [selectedCountry]);
 
   useEffect(() => {
-    console.log(selectedAirportId);
-  }, [selectedAirportId]);
+    console.log(selectedAirportIata);
+  }, [selectedAirportIata]);
 
   return (
     <>
@@ -36,15 +36,15 @@ export const FlightSearchBox = () => {
         {selectedCountry !== null && isCountrySelected && (
           <AirportsList
             countryId={selectedCountry.id}
-            onAirportSelect={setSelectedAirportId}
+            onAirportSelect={setSelectedAirportIata}
           />
         )}
       </Suspense>
       <Suspense fallback={<LoadingBox />}>
         {selectedCountry !== null &&
           isCountrySelected &&
-          selectedAirportId !== 0 && (
-            <Departures airportId={selectedAirportId} />
+          selectedAirportIata !== '' && (
+            <Departures airportIata={selectedAirportIata} />
           )}
       </Suspense>
     </>

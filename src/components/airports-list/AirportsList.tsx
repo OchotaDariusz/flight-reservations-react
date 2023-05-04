@@ -3,24 +3,14 @@ import { DataGrid, GridColDef, GridRowSelectionModel } from '@mui/x-data-grid';
 import { LoadingBox } from '../loading-box/LoadingBox';
 
 const columns: GridColDef[] = [
-  { field: 'id', headerName: 'ID', flex: 1 },
+  { field: 'id' },
   { field: 'name', headerName: 'Airport', flex: 3 },
   { field: 'city', headerName: 'City', flex: 2 },
-  {
-    field: 'iataCode',
-    headerName: 'IATA',
-    flex: 1,
-  },
-  {
-    field: 'icaoCode',
-    headerName: 'ICAO',
-    flex: 1,
-  },
 ];
 
 type Props = {
   countryId: number;
-  onAirportSelect: (id: number) => void;
+  onAirportSelect: (id: string) => void;
 };
 
 const AirportsList: React.FC<Props> = ({ countryId, onAirportSelect }) => {
@@ -46,18 +36,16 @@ const AirportsList: React.FC<Props> = ({ countryId, onAirportSelect }) => {
   }, [countryId]);
 
   const airports = listOfAirports.map((airport) => ({
-    id: airport.id,
+    id: airport.iataCode,
     name: airport.name,
     city: airport.city,
-    iataCode: airport.iataCode,
-    icaoCode: airport.icaoCode,
   }));
 
   const handleAirportChange = (rowSelectionModel: GridRowSelectionModel) => {
     if (rowSelectionModel.length !== 0) {
-      onAirportSelect(rowSelectionModel[0] as number);
+      onAirportSelect(rowSelectionModel[0] as string);
     } else {
-      onAirportSelect(0);
+      onAirportSelect('');
     }
   };
 
@@ -73,6 +61,11 @@ const AirportsList: React.FC<Props> = ({ countryId, onAirportSelect }) => {
             initialState={{
               pagination: {
                 paginationModel: { page: 0, pageSize: 5 },
+              },
+              columns: {
+                columnVisibilityModel: {
+                  id: false,
+                },
               },
             }}
             pageSizeOptions={[5, 10]}

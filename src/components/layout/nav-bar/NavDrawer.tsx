@@ -1,11 +1,11 @@
-import { ThemeSwitchButton } from '../theme-switch-button/ThemeSwitchButton';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import { Link } from 'react-router-dom';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import HomeIcon from '@mui/icons-material/Home';
@@ -16,9 +16,10 @@ import ListItemText from '@mui/material/ListItemText';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Drawer from '@mui/material/Drawer';
-import * as React from 'react';
 import { useTheme } from '@mui/material';
 import { styled } from '@mui/material/styles';
+
+import { ThemeSwitchButton } from '../../theme-switch-button/ThemeSwitchButton';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -29,10 +30,10 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-interface NavDrawerProps {
+type NavDrawerProps = {
   isOpen: boolean;
   handleDrawerClose: () => void;
-}
+};
 const NavDrawer = ({ isOpen, handleDrawerClose }: NavDrawerProps) => {
   const theme = useTheme();
 
