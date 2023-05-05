@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
@@ -8,6 +9,8 @@ import { VideoContainer } from '@flight-reservations/components';
 import styles from './Home.module.scss';
 
 export const Home = () => {
+  const navigate = useNavigate();
+
   return (
     <div className={styles['home-container']}>
       <Box
@@ -20,23 +23,21 @@ export const Home = () => {
           paddingBottom: '1.5rem',
         }}
       >
-        <Button variant="outlined">Welcome</Button>
-        <Typography
-          variant="h1"
-          component="h1"
-          gutterBottom
+        <Button
+          variant="contained"
+          size="large"
+          color="secondary"
+          onClick={() => navigate('/search')}
+          disableElevation
           sx={{
-            fontWeight: 'bold',
-            color: 'white',
-            textShadow: '0 0 50px rgba(0,0,0,0.25)',
-            textDecorationStyle: 'solid',
+            marginBottom: '1.5rem',
           }}
         >
-          Welcome!
-        </Typography>
+          Search Destinations
+        </Button>
         <Divider />
         <Typography variant="subtitle1" component="p" gutterBottom pt={2}>
-          This is flight reservation system
+          Welcome to The Flight Reservation System.
         </Typography>
       </Box>
       <VideoContainer />
