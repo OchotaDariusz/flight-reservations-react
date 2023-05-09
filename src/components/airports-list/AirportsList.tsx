@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { DataGrid, GridColDef, GridRowSelectionModel } from '@mui/x-data-grid';
 
 import { LoadingBox } from '@flight-reservations/components';
+import { useGetAirportsByCountry } from '@flight-reservations/hooks';
 
 const columns: GridColDef[] = [
   { field: 'id' },
@@ -15,30 +16,11 @@ type AirportsListProps = {
 };
 
 export const AirportsList: React.FC<AirportsListProps> = (props) => {
-  const [listOfAirports, setListOfAirports] = useState<Airport[]>([]);
-  const [isAirportsLoading, setIsAirportsLoading] = useState(false);
+  const [isAirportsLoading, listOfAirports] = useGetAirportsByCountry(
+    props.countryId,
+  );
 
-  const { countryId } = props;
-
-  useEffect(() => {
-    if (props.countryId) {
-      setIsAirportsLoading(true);
-      fetch(`/airports/${countryId}`)
-        .then((data) => data.json())
-        .then((data: Airport[]) => {
-          setIsAirportsLoading(false);
-          setListOfAirports(data.flat());
-        })
-        .catch((err) => {
-          setIsAirportsLoading(false);
-          console.error(err.message);
-        });
-    } else {
-      setListOfAirports([]);
-    }
-  }, [countryId]);
-
-  const airports = listOfAirports.map((airport) => ({
+  const airports = listOfAirports.map((airport: Airport) => ({
     id: airport.iataCode,
     name: airport.name,
     city: airport.city,

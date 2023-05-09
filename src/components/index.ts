@@ -7,4 +7,5 @@ export { FlightSearchBox } from './flight-search-box/FlightSearchBox';
 export { CountriesSearchBox } from './flight-search-box/CountriesSearchBox';
 export { LoadingBox } from './loading-box/LoadingBox';
 export { AirportsList } from './airports-list/AirportsList';
+export { AirportsMap } from './airports-map/AirportsMap';
 export { Departures } from './departures/Departures';

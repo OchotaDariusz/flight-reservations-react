@@ -58,7 +58,6 @@ export const Departures: React.FC<DeparturesProps> = (props) => {
       fetch(`/flights/${airportIata}`)
         .then((data) => data.json())
         .then((data: Departure[]) => {
-          console.log(data);
           setIsDeparturesLoading(false);
           setListOfDepartures(data);
         })
