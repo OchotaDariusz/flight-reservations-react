@@ -5,7 +5,6 @@ import { createHashRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
 import {
   About,
-  Contact,
   ErrorPage,
   FlightSearch,
   Home,
@@ -35,10 +34,6 @@ const router = createHashRouter([
       {
         path: '/about',
         element: <About />,
-      },
-      {
-        path: '/contact',
-        element: <Contact />,
       },
     ],
   },

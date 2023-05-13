@@ -5,7 +5,6 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Toolbar from '@mui/material/Toolbar';
 import { ClickAwayListener } from '@mui/material';
 
@@ -67,18 +66,6 @@ export const NavBar = () => {
             >
               <SearchBar />
             </Box>
-            <IconButton
-              size="large"
-              aria-label="account"
-              edge="end"
-              color="inherit"
-              sx={{
-                marginTop: 'auto',
-                marginBottom: 'auto',
-              }}
-            >
-              <AccountCircleIcon sx={{ fontSize: '2.5rem' }} />
-            </IconButton>
           </StyledToolbar>
         </AppBar>
         <NavDrawer isOpen={isOpen} handleDrawerClose={handleDrawerClose} />

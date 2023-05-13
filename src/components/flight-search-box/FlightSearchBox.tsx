@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import InteractiveMapSwitch from './InteractiveMapSwitch';
+import InteractiveMapSwitch from '../interactive-map-switch/InteractiveMapSwitch';
 
 import {
   AirportsList,
   AirportsMap,
-  CountriesSearchBox,
+  CountrySearchBox,
   Departures,
 } from '@flight-reservations/components';
 
@@ -27,11 +27,11 @@ export const FlightSearchBox = () => {
       setIsCountrySelected(true);
     }
     setSelectedAirportIata('');
-  }, [selectedCountry]);
+  }, [selectedCountry, isInteractiveMapVisible]);
 
   return (
     <>
-      <CountriesSearchBox onCountryChange={setSelectedCountry} />
+      <CountrySearchBox onCountryChange={setSelectedCountry} />
       <InteractiveMapSwitch onChange={setIsInteractiveMapVisible} />
       {!isInteractiveMapVisible &&
         selectedCountry !== null &&

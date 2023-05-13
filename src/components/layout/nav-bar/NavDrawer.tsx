@@ -11,10 +11,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import HomeIcon from '@mui/icons-material/Home';
 import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import MailIcon from '@mui/icons-material/Mail';
 import ListItemText from '@mui/material/ListItemText';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import LogoutIcon from '@mui/icons-material/Logout';
 import Drawer from '@mui/material/Drawer';
 import { useTheme } from '@mui/material';
 import { styled } from '@mui/material/styles';
@@ -49,10 +46,6 @@ const NavDrawer = ({ isOpen, handleDrawerClose }: NavDrawerProps) => {
     about: {
       title: 'About',
       route: 'about',
-    },
-    contact: {
-      title: 'Contact',
-      route: 'contact',
     },
   };
 
@@ -91,24 +84,10 @@ const NavDrawer = ({ isOpen, handleDrawerClose }: NavDrawerProps) => {
                   {entryKey === 'home' && <HomeIcon />}
                   {entryKey === 'search' && <FlightTakeoffIcon />}
                   {entryKey === 'about' && <HelpOutlineIcon />}
-                  {entryKey === 'contact' && <MailIcon />}
                 </ListItemIcon>
                 <ListItemText primary={title} />
               </ListItemButton>
             </Link>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {['Account', 'Logout'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <AccountCircleIcon /> : <LogoutIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
           </ListItem>
         ))}
       </List>

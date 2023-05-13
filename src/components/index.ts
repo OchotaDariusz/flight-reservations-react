@@ -4,7 +4,7 @@ export { ThemeSwitchButton } from './theme-switch-button/ThemeSwitchButton';
 export { ThemeColorWrapper } from './theme-color-wrapper/ThemeColorWrapper';
 export { VideoContainer } from './video-container/VideoContainer';
 export { FlightSearchBox } from './flight-search-box/FlightSearchBox';
-export { CountriesSearchBox } from './flight-search-box/CountriesSearchBox';
+export { CountrySearchBox } from './country-search-box/CountrySearchBox';
 export { LoadingBox } from './loading-box/LoadingBox';
 export { AirportsList } from './airports-list/AirportsList';
 export { AirportsMap } from './airports-map/AirportsMap';

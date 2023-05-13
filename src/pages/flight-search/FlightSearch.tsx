@@ -1,19 +1,11 @@
-import React, { useEffect } from 'react';
-import { toast } from 'react-toastify';
+import React from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
 
 import { FlightSearchBox } from '@flight-reservations/components';
-import { useTheme } from '@mui/material';
 
 export const FlightSearch = () => {
-  const theme = useTheme();
-  const { mode: colorMode } = theme.palette;
-  useEffect(() => {
-    toast.success('success');
-  }, [colorMode]);
-
   return (
     <Box
       sx={{

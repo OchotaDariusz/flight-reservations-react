@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 export const useGetAirportsByCountry = (
   countryId: number,
@@ -17,7 +18,7 @@ export const useGetAirportsByCountry = (
         })
         .catch((err) => {
           setIsAirportsLoading(false);
-          console.error(err.message);
+          toast.error(err.message);
         });
     } else {
       setListOfAirports([]);

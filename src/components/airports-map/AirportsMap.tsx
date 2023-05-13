@@ -59,7 +59,7 @@ export const AirportsMap: React.FC<AirportsMapProps> = (props) => {
             return (
               <Marker
                 key={airport.id}
-                position={[airport.longitude, airport.latitude]}
+                position={[airport.latitude, airport.longitude]}
               >
                 <Popup>
                   <Button
