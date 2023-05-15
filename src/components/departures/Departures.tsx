@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import {
   DataGrid,
+  GridCellParams,
   GridColDef,
-  GridRowSelectionModel,
   GridValueGetterParams,
 } from '@mui/x-data-grid';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import WarningIcon from '@mui/icons-material/Warning';
+import ReportIcon from '@mui/icons-material/Report';
+import { Chip } from '@mui/material';
+import { toast } from 'react-toastify';
 
 import { LoadingBox } from '@flight-reservations/components';
 
 const columns: GridColDef[] = [
   { field: 'id' },
-  {
-    field: 'from',
-    headerName: 'From',
-    flex: 4,
-    valueGetter: (params: GridValueGetterParams) =>
-      `${params.row.departureAirport.name}`,
-  },
   {
     field: 'to',
     headerName: 'To',
@@ -27,7 +25,7 @@ const columns: GridColDef[] = [
   {
     field: 'departureTime',
     headerName: 'Departure Time',
-    flex: 3,
+    flex: 2,
     valueGetter: (params: GridValueGetterParams) => {
       const date = new Date(params.row.departureTimeUtc);
       return new Intl.DateTimeFormat(undefined, {
@@ -38,8 +36,41 @@ const columns: GridColDef[] = [
         .toString();
     },
   },
-  { field: 'duration', headerName: 'Duration', flex: 1 },
-  { field: 'delayed', headerName: 'Delay', flex: 1 },
+  {
+    field: 'duration',
+    headerName: 'Duration',
+    flex: 1,
+    valueGetter: (params: GridValueGetterParams) => {
+      return `${params.row.duration}m`;
+    },
+  },
+  {
+    field: 'delayed',
+    headerName: 'Delay',
+    flex: 1,
+    renderCell: (params: GridCellParams): JSX.Element => {
+      const delayTime = +params.row.delayed;
+      let status: 'success' | 'warning' | 'error' = 'success';
+      let icon = <CheckCircleIcon />;
+      if (delayTime > 0 && delayTime <= 60) {
+        status = 'warning';
+        icon = <WarningIcon />;
+      } else if (delayTime > 60) {
+        status = 'error';
+        icon = <ReportIcon />;
+      }
+
+      return (
+        <Chip
+          variant="outlined"
+          color={status}
+          size="small"
+          icon={icon}
+          label={delayTime}
+        />
+      );
+    },
+  },
 ];
 
 type DeparturesProps = {
@@ -58,27 +89,17 @@ export const Departures: React.FC<DeparturesProps> = (props) => {
       fetch(`/flights/${airportIata}`)
         .then((data) => data.json())
         .then((data: Departure[]) => {
-          console.log(data);
           setIsDeparturesLoading(false);
           setListOfDepartures(data);
         })
         .catch((err) => {
           setIsDeparturesLoading(false);
-          console.error(err.message);
+          toast.error(err.message);
         });
     } else {
       setListOfDepartures([]);
     }
   }, [airportIata]);
-
-  const handleAirportChange = (rowSelectionModel: GridRowSelectionModel) => {
-    // if (rowSelectionModel.length !== 0) {
-    //   onAirportSelect(rowSelectionModel[0] as number);
-    // } else {
-    //   onAirportSelect(0);
-    // }
-    console.log(rowSelectionModel);
-  };
 
   return (
     <>
@@ -91,7 +112,7 @@ export const Departures: React.FC<DeparturesProps> = (props) => {
             columns={columns}
             initialState={{
               pagination: {
-                paginationModel: { page: 0, pageSize: 10 },
+                paginationModel: { page: 0, pageSize: 5 },
               },
               columns: {
                 columnVisibilityModel: {
@@ -100,7 +121,6 @@ export const Departures: React.FC<DeparturesProps> = (props) => {
               },
             }}
             pageSizeOptions={[5, 10]}
-            onRowSelectionModelChange={handleAirportChange}
           />
         )}
       </div>

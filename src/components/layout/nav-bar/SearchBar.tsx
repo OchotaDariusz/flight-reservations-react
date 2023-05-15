@@ -58,8 +58,6 @@ type RouteOption = { label: string; value: string; route: string };
 
 const autocompleteOptions: RouteOption[] = [
   { label: 'Flight Search', value: 'flight search', route: 'search' },
-  { label: 'Account', value: 'account', route: 'profile' },
-  { label: 'Contact', value: 'contact', route: 'contact' },
   { label: 'About', value: 'about', route: 'about' },
 ];
 

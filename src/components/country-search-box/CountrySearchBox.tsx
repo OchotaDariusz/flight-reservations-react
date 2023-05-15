@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import { toast } from 'react-toastify';
 
 type CountriesSearchBoxProps = {
   onCountryChange: (country: Country) => void;
 };
 
-export const CountriesSearchBox: React.FC<CountriesSearchBoxProps> = (
-  props,
-) => {
+export const CountrySearchBox: React.FC<CountriesSearchBoxProps> = (props) => {
   const [countries, setCountries] = useState<Country[]>([]);
 
   useEffect(() => {
@@ -18,7 +17,7 @@ export const CountriesSearchBox: React.FC<CountriesSearchBoxProps> = (
         .then((data: Country[]) => {
           setCountries(data.flat());
         })
-        .catch((err) => console.error(err.message));
+        .catch((err) => toast.error(err.message));
     }
   }, [countries]);
 
