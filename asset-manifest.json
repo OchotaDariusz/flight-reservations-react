@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/flight-reservations-react/static/css/main.0c54586e.css",
-    "main.js": "/flight-reservations-react/static/js/main.23475491.js",
+    "main.js": "/flight-reservations-react/static/js/main.db97a390.js",
     "static/media/roboto-all-500-normal.woff": "/flight-reservations-react/static/media/roboto-all-500-normal.0ab669b7a0d19b178f57.woff",
     "static/media/roboto-all-700-normal.woff": "/flight-reservations-react/static/media/roboto-all-700-normal.a457fde362a540fcadff.woff",
     "static/media/roboto-all-400-normal.woff": "/flight-reservations-react/static/media/roboto-all-400-normal.c5d001fa922fa66a147f.woff",
@@ -36,10 +36,10 @@
     "static/media/roboto-greek-ext-700-normal.woff2": "/flight-reservations-react/static/media/roboto-greek-ext-700-normal.bd9854c751441ccc1a70.woff2",
     "index.html": "/flight-reservations-react/index.html",
     "main.0c54586e.css.map": "/flight-reservations-react/static/css/main.0c54586e.css.map",
-    "main.23475491.js.map": "/flight-reservations-react/static/js/main.23475491.js.map"
+    "main.db97a390.js.map": "/flight-reservations-react/static/js/main.db97a390.js.map"
   },
   "entrypoints": [
     "static/css/main.0c54586e.css",
-    "static/js/main.23475491.js"
+    "static/js/main.db97a390.js"
   ]
 }
