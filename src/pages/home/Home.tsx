@@ -23,6 +23,7 @@ export const Home = () => {
           marginTop: '10%',
           paddingTop: '1.5rem',
           paddingBottom: '1.5rem',
+          marginBottom: '10%',
         }}
       >
         <Button
