@@ -10,7 +10,10 @@ export const FlightSearch = () => {
     <Box
       sx={{
         backgroundColor: 'rgba(255, 255, 255, 0.3)',
-        margin: '1.25rem',
+        margin: {
+          xs: '.25rem',
+          sm: '1.25rem',
+        },
         paddingTop: '1px',
         paddingBottom: '1.25rem',
         borderRadius: '4px',
@@ -30,15 +33,22 @@ export const FlightSearch = () => {
       >
         Flight Search
       </Typography>
-
       <Card
         variant="outlined"
         sx={{
           display: 'flex',
           flexDirection: 'column',
           placeItems: 'center',
-          padding: '2rem',
-          margin: '2rem',
+          padding: {
+            xs: '.5rem',
+            sm: '2rem',
+            md: '4rem',
+          },
+          margin: {
+            xs: '.5rem',
+            sm: '2rem',
+            md: '4rem',
+          },
         }}
       >
         <FlightSearchBox />

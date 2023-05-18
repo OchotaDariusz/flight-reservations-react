@@ -29,13 +29,12 @@ export const CountrySearchBox: React.FC<CountriesSearchBoxProps> = (props) => {
   return (
     <Autocomplete
       disablePortal
-      id="combo-box-demo"
       options={countries}
       getOptionLabel={(option) => option.name}
       onChange={(_event, value) => {
         props.onCountryChange(value as Country);
       }}
-      sx={{ width: 300 }}
+      sx={{ width: { xs: 200, sm: 300 } }}
       renderInput={(params) => <TextField {...params} label="Country" />}
     />
   );

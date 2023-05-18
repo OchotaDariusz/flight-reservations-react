@@ -6,10 +6,12 @@ import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 
 import { VideoContainer } from '@flight-reservations/components';
+import { useWindowSize } from '@flight-reservations/hooks';
 import styles from './Home.module.scss';
 
 export const Home = () => {
   const navigate = useNavigate();
+  const windowSize = useWindowSize();
 
   return (
     <div className={styles['home-container']}>
@@ -40,7 +42,7 @@ export const Home = () => {
           Welcome to The Flight Reservation System.
         </Typography>
       </Box>
-      <VideoContainer />
+      {windowSize >= 1280 && <VideoContainer />}
     </div>
   );
 };

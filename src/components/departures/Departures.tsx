@@ -1,47 +1,39 @@
 import React, { useEffect, useState } from 'react';
-import {
-  DataGrid,
-  GridCellParams,
-  GridColDef,
-  GridValueGetterParams,
-} from '@mui/x-data-grid';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import WarningIcon from '@mui/icons-material/Warning';
-import ReportIcon from '@mui/icons-material/Report';
-import { Chip } from '@mui/material';
+import { DataGrid, GridCellParams, GridColDef } from '@mui/x-data-grid';
 import { toast } from 'react-toastify';
 
 import { LoadingBox } from '@flight-reservations/components';
+import DurationPopover from './DurationPopover';
+import DelayPopover from './DelayPopover';
+import DeparturePopover from './DeparturePopover';
+import AirportPopover from './AirportPopover';
 
 const columns: GridColDef[] = [
   { field: 'id' },
   {
     field: 'to',
     headerName: 'To',
-    flex: 4,
-    valueGetter: (params: GridValueGetterParams) =>
-      `${params.row.arrivalAirport.name}`,
+    flex: window.innerWidth > 400 ? 4 : 3,
+    renderCell: (params: GridCellParams): JSX.Element => {
+      return <AirportPopover airportName={params.row.arrivalAirport.name} />;
+    },
   },
   {
     field: 'departureTime',
     headerName: 'Departure Time',
-    flex: 2,
-    valueGetter: (params: GridValueGetterParams) => {
-      const date = new Date(params.row.departureTimeUtc);
-      return new Intl.DateTimeFormat(undefined, {
-        dateStyle: 'medium',
-        timeStyle: 'medium',
-      })
-        .format(date)
-        .toString();
+    flex: window.innerWidth > 400 ? 2 : 3,
+    renderCell: (params: GridCellParams): JSX.Element => {
+      return (
+        <DeparturePopover departureTimeUtc={params.row.departureTimeUtc} />
+      );
     },
   },
   {
     field: 'duration',
     headerName: 'Duration',
     flex: 1,
-    valueGetter: (params: GridValueGetterParams) => {
-      return `${params.row.duration}m`;
+    renderCell: (params: GridCellParams): JSX.Element => {
+      return <DurationPopover duration={params.row.duration} />;
     },
   },
   {
@@ -49,26 +41,7 @@ const columns: GridColDef[] = [
     headerName: 'Delay',
     flex: 1,
     renderCell: (params: GridCellParams): JSX.Element => {
-      const delayTime = +params.row.delayed;
-      let status: 'success' | 'warning' | 'error' = 'success';
-      let icon = <CheckCircleIcon />;
-      if (delayTime > 0 && delayTime <= 60) {
-        status = 'warning';
-        icon = <WarningIcon />;
-      } else if (delayTime > 60) {
-        status = 'error';
-        icon = <ReportIcon />;
-      }
-
-      return (
-        <Chip
-          variant="outlined"
-          color={status}
-          size="small"
-          icon={icon}
-          label={delayTime}
-        />
-      );
+      return <DelayPopover delayed={+params.row.delayed} />;
     },
   },
 ];

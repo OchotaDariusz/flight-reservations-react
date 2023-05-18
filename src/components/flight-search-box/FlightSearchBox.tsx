@@ -7,8 +7,10 @@ import {
   CountrySearchBox,
   Departures,
 } from '@flight-reservations/components';
+import { useWindowSize } from '@flight-reservations/hooks';
 
 export const FlightSearchBox = () => {
+  const windowSize = useWindowSize();
   const [selectedCountry, setSelectedCountry] = useState<Country>({
     id: 0,
     name: 'country',
@@ -32,7 +34,9 @@ export const FlightSearchBox = () => {
   return (
     <>
       <CountrySearchBox onCountryChange={setSelectedCountry} />
-      <InteractiveMapSwitch onChange={setIsInteractiveMapVisible} />
+      {windowSize >= 600 && (
+        <InteractiveMapSwitch onChange={setIsInteractiveMapVisible} />
+      )}
       {!isInteractiveMapVisible &&
         selectedCountry !== null &&
         isCountrySelected && (
