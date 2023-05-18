@@ -12,7 +12,7 @@ export const CountrySearchBox: React.FC<CountriesSearchBoxProps> = (props) => {
 
   useEffect(() => {
     if (countries.length === 0) {
-      fetch('https://szymontracz.com/api/v1/country/all', {
+      fetch(`${process.env.REACT_APP_BACKEND_HOST}/country/all`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
         },
