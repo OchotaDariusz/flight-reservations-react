@@ -12,7 +12,12 @@ export const CountrySearchBox: React.FC<CountriesSearchBoxProps> = (props) => {
 
   useEffect(() => {
     if (countries.length === 0) {
-      fetch('/api/v1/country/all')
+      fetch('https://szymontracz.com/api/v1/country/all', {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+        },
+        cache: 'no-store',
+      })
         .then((data) => data.json())
         .then((data: Country[]) => {
           setCountries(data.flat());

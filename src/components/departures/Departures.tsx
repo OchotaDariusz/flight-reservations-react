@@ -86,7 +86,12 @@ export const Departures: React.FC<DeparturesProps> = (props) => {
   useEffect(() => {
     if (airportIata) {
       setIsDeparturesLoading(true);
-      fetch(`/flights/${airportIata}`)
+      fetch(`https://szymontracz.com/api/v1/flights/${airportIata}`, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+        },
+        cache: 'no-store',
+      })
         .then((data) => data.json())
         .then((data: Departure[]) => {
           setIsDeparturesLoading(false);

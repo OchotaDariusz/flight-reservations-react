@@ -10,7 +10,12 @@ export const useGetAirportsByCountry = (
   useEffect(() => {
     if (countryId) {
       setIsAirportsLoading(true);
-      fetch(`/airports/${countryId}`)
+      fetch(`https://szymontracz.com/api/v1/airports/${countryId}`, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+        },
+        cache: 'no-store',
+      })
         .then((data) => data.json())
         .then((data: Airport[]) => {
           setIsAirportsLoading(false);
