@@ -3,3 +3,6 @@ WIP. The idea is to browse flights from airports all over the world, with live d
 
 Co-engineered with [Szymon Tracz](https://github.com/szopszop/), Product Owner and backend developer:
 [https://github.com/szopszop/Flight-Reservation](https://github.com/szopszop/Flight-Reservation)
+
+
+## [DEMO](https://ochotadariusz.github.io/flight-reservations-react/)
