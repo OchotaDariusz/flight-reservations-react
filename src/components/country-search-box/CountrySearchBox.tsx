@@ -29,6 +29,7 @@ export const CountrySearchBox: React.FC<CountriesSearchBoxProps> = (props) => {
   return (
     <Autocomplete
       disablePortal
+      noOptionsText="Loading..."
       options={countries}
       getOptionLabel={(option) => option.name}
       onChange={(_event, value) => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { DataGrid, GridColDef, GridRowSelectionModel } from '@mui/x-data-grid';
 
 import { LoadingBox } from '@flight-reservations/components';
@@ -20,6 +20,19 @@ export const AirportsList: React.FC<AirportsListProps> = (props) => {
     props.countryId,
   );
 
+  const airportsListElement = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const element = airportsListElement.current;
+    if (element && listOfAirports.length !== 0) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'end',
+      });
+      console.log('scroll');
+    }
+  }, [airportsListElement, listOfAirports, isAirportsLoading]);
+
   const airports = listOfAirports.map((airport: Airport) => ({
     id: airport.iataCode,
     name: airport.name,
@@ -36,7 +49,10 @@ export const AirportsList: React.FC<AirportsListProps> = (props) => {
 
   return (
     <>
-      <div style={{ height: '100%', width: '100%', paddingBottom: '2rem' }}>
+      <div
+        ref={airportsListElement}
+        style={{ height: '100%', width: '100%', paddingBottom: '2rem' }}
+      >
         <h2>Airports</h2>
         {isAirportsLoading && <LoadingBox />}
         {!isAirportsLoading && (

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { DataGrid, GridCellParams, GridColDef } from '@mui/x-data-grid';
 import { toast } from 'react-toastify';
 
@@ -54,6 +54,18 @@ export const Departures: React.FC<DeparturesProps> = (props) => {
   const [listOfDepartures, setListOfDepartures] = useState<Departure[]>([]);
   const [isDeparturesLoading, setIsDeparturesLoading] = useState(false);
 
+  const departuresListElement = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const element = departuresListElement.current;
+    if (element && listOfDepartures.length !== 0) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'end',
+      });
+    }
+  }, [departuresListElement, listOfDepartures, isDeparturesLoading]);
+
   const { airportIata } = props;
 
   useEffect(() => {
@@ -81,7 +93,10 @@ export const Departures: React.FC<DeparturesProps> = (props) => {
 
   return (
     <>
-      <div style={{ height: '100%', width: '100%', paddingBottom: '2rem' }}>
+      <div
+        ref={departuresListElement}
+        style={{ height: '100%', width: '100%', paddingBottom: '2rem' }}
+      >
         <h2>Departures</h2>
         {isDeparturesLoading && <LoadingBox />}
         {!isDeparturesLoading && (

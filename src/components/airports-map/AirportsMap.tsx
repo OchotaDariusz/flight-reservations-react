@@ -32,6 +32,7 @@ export const AirportsMap: React.FC<AirportsMapProps> = (props) => {
 
   return (
     <Box
+      id="#airports"
       sx={{
         margin: '1.25rem',
         display: 'flex',
