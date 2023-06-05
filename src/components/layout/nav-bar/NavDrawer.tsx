@@ -77,7 +77,7 @@ const NavDrawer = ({ isOpen, handleDrawerClose }: NavDrawerProps) => {
       <Divider />
       <List>
         {Object.entries(pages).map(([entryKey, { title, route }]) => (
-          <ListItem key={entryKey} disablePadding>
+          <ListItem key={entryKey} onClick={handleDrawerClose} disablePadding>
             <Link to={`/${route}`}>
               <ListItemButton>
                 <ListItemIcon>

@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 
 const axiosInstance = axios.create({
@@ -17,6 +17,12 @@ export const useFetchData = <T extends Array<any>>(
   const [error, setError] = useState<AxiosError | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<T | any[]>([]);
+
+  // onChange => reset data array - infinite-loop blocker
+  const endpoint = useMemo(() => apiEndpoint, [apiEndpoint]);
+  useEffect(() => {
+    setData([]);
+  }, [endpoint]);
 
   const handleFetch = useCallback(
     (url: string) => {
@@ -39,23 +45,13 @@ export const useFetchData = <T extends Array<any>>(
   );
 
   useEffect(() => {
-    let timeout: NodeJS.Timeout | undefined;
     if (data.length === 0 && !error) {
       handleFetch(apiEndpoint);
     } else if (error) {
       toast.error(error.message);
-      toast.info('Retry in 5s...');
-      timeout = setTimeout(() => {
-        handleFetch(apiEndpoint);
-      }, 5000);
+      toast.info('Try again later...');
     }
-
-    return () => {
-      if (timeout) {
-        clearTimeout(timeout);
-      }
-    };
-  }, [data, error]);
+  }, [apiEndpoint, data, error]);
 
   return [isLoading, data];
 };
