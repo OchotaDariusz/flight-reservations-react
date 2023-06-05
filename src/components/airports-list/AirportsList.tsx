@@ -29,7 +29,6 @@ export const AirportsList: React.FC<AirportsListProps> = (props) => {
         block: 'start',
         inline: 'end',
       });
-      console.log('scroll');
     }
   }, [airportsListElement, listOfAirports, isAirportsLoading]);
 

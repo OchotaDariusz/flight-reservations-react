@@ -1,13 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import { DataGrid, GridCellParams, GridColDef } from '@mui/x-data-grid';
-import { toast } from 'react-toastify';
 
 import { LoadingBox } from '@flight-reservations/components';
+import { useFetchData } from '@flight-reservations/hooks';
 import DurationPopover from './DurationPopover';
 import DelayPopover from './DelayPopover';
 import DeparturePopover from './DeparturePopover';
 import AirportPopover from './AirportPopover';
-import { useFetchData } from '@flight-reservations/hooks';
 
 const columns: GridColDef[] = [
   { field: 'id' },
@@ -51,9 +50,10 @@ type DeparturesProps = {
   airportIata: string;
 };
 
-export const Departures: React.FC<DeparturesProps> = (props) => {
-  const [error, isDeparturesLoading, listOfDepartures, fetchData] =
-    useFetchData<Departure[]>();
+export const Departures: React.FC<DeparturesProps> = ({ airportIata }) => {
+  const [isDeparturesLoading, listOfDepartures] = useFetchData<Departure[]>(
+    `/flights/${airportIata}`,
+  );
 
   const departuresListElement = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -66,18 +66,6 @@ export const Departures: React.FC<DeparturesProps> = (props) => {
       });
     }
   }, [departuresListElement, listOfDepartures, isDeparturesLoading]);
-
-  const { airportIata } = props;
-
-  useEffect(() => {
-    if (airportIata) {
-      fetchData(`/flights/${airportIata}`);
-    }
-
-    if (error) {
-      toast.error(error.message);
-    }
-  }, [airportIata, error]);
 
   return (
     <>

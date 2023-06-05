@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import { toast } from 'react-toastify';
 
 import { useFetchData } from '@flight-reservations/hooks';
 
@@ -10,17 +9,7 @@ type CountriesSearchBoxProps = {
 };
 
 export const CountrySearchBox: React.FC<CountriesSearchBoxProps> = (props) => {
-  const [error, isLoading, countries, fetchData] = useFetchData<Country[]>();
-
-  useEffect(() => {
-    if (countries.length === 0) {
-      fetchData('/country/all');
-    }
-
-    if (error) {
-      toast.error(error.message);
-    }
-  }, [countries, error]);
+  const [isLoading, countries] = useFetchData<Country[]>('/country/all');
 
   return (
     <Autocomplete
