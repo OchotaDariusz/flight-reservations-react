@@ -1,34 +1,23 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { toast } from 'react-toastify';
+
+import { useFetchData } from '@flight-reservations/hooks';
 
 export const useGetAirportsByCountry = (
   countryId: number,
 ): [boolean, Airport[]] => {
-  const [listOfAirports, setListOfAirports] = useState<Airport[]>([]);
-  const [isAirportsLoading, setIsAirportsLoading] = useState(false);
+  const [error, isAirportsLoading, listOfAirports, fetchData] =
+    useFetchData<Airport[]>();
 
   useEffect(() => {
     if (countryId) {
-      setIsAirportsLoading(true);
-      fetch(`${process.env.REACT_APP_BACKEND_HOST}/airports/${countryId}`, {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-        },
-        cache: 'no-store',
-      })
-        .then((data) => data.json())
-        .then((data: Airport[]) => {
-          setIsAirportsLoading(false);
-          setListOfAirports(data.flat());
-        })
-        .catch((err) => {
-          setIsAirportsLoading(false);
-          toast.error(err.message);
-        });
-    } else {
-      setListOfAirports([]);
+      fetchData(`/airports/${countryId}`);
     }
-  }, [countryId]);
+
+    if (error) {
+      toast.error(error.message);
+    }
+  }, [countryId, error]);
 
   return [isAirportsLoading, listOfAirports];
 };

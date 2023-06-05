@@ -1,35 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { toast } from 'react-toastify';
+
+import { useFetchData } from '@flight-reservations/hooks';
 
 type CountriesSearchBoxProps = {
   onCountryChange: (country: Country) => void;
 };
 
 export const CountrySearchBox: React.FC<CountriesSearchBoxProps> = (props) => {
-  const [countries, setCountries] = useState<Country[]>([]);
+  const [error, isLoading, countries, fetchData] = useFetchData<Country[]>();
 
   useEffect(() => {
     if (countries.length === 0) {
-      fetch(`${process.env.REACT_APP_BACKEND_HOST}/country/all`, {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-        },
-        cache: 'no-store',
-      })
-        .then((data) => data.json())
-        .then((data: Country[]) => {
-          setCountries(data.flat());
-        })
-        .catch((err) => toast.error(err.message));
+      fetchData('/country/all');
     }
-  }, [countries]);
+
+    if (error) {
+      toast.error(error.message);
+    }
+  }, [countries, error]);
 
   return (
     <Autocomplete
       disablePortal
-      noOptionsText="Loading..."
+      noOptionsText={isLoading ? 'Loading...' : 'Something went wrong.'}
       options={countries}
       getOptionLabel={(option) => option.name}
       onChange={(_event, value) => {
